@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    driver-class-name: ${DRIVER_CLASS_NAME:org.h2.Driver}
+    url: ${JDBC_URL:jdbc:h2:mem:testdb}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: ${DDL_AUTO:create-drop}
+      dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.H2Dialect}
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+
+app:
+  credit-card-data-dir: ${CREDIT_CARD_DATA_DIR:}
+  validation:
+    name-pattern: ${VALID_NAME_PATTERN:^[A-Ž][a-ž]+$}
+    personal-identification-number-country: ${PERSONAL_IDENTIFICATION_NUMBER_COUNTRY:hr}
