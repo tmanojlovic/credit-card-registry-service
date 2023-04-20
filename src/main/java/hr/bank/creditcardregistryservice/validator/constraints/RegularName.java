@@ -16,7 +16,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({FIELD})
 @Retention(RUNTIME)
 @Constraint(validatedBy = NameValidator.class)
-@Documented
 public @interface RegularName {
     String message() default "Name format is not supported. " +
             "Name should start with capital letter, have at least 2 characters" +

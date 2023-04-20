@@ -2,6 +2,7 @@ package hr.bank.creditcardregistryservice.controller;
 
 import hr.bank.creditcardregistryservice.model.Client;
 import hr.bank.creditcardregistryservice.service.ClientService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +29,7 @@ public class ClientController {
 
     @GetMapping("/{personalIdentificationNumber}")
     @ResponseBody
-    public ResponseEntity<Client> getClientByIdentificationNumber(@PathVariable String personalIdentificationNumber) throws IOException {
+    public ResponseEntity<Client> getClientByIdentificationNumber(@NotNull @PathVariable String personalIdentificationNumber) throws IOException {
         return new ResponseEntity<>(
                 clientService.getClientByIdentificationNumber(personalIdentificationNumber),
                 HttpStatusCode.valueOf(200)
@@ -38,7 +39,7 @@ public class ClientController {
     @DeleteMapping("/{personalIdentificationNumber}")
     @ResponseBody
     public ResponseEntity<Void> deleteClient(
-            @PathVariable("personalIdentificationNumber") String personalIdentificationNumber
+            @NotNull @PathVariable String personalIdentificationNumber
     ) throws IOException {
         clientService.deleteClient(personalIdentificationNumber);
         return new ResponseEntity<>(HttpStatusCode.valueOf(200));
