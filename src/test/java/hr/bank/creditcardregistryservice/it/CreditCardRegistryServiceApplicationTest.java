@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -34,10 +35,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles({"test"})
 public class CreditCardRegistryServiceApplicationTest {
 
-    static {
-        //Since temp directory depends on OS on which the test is run, it should be able to run anywhere
-        System.setProperty("CREDIT_CARD_DATA_DIR", System.getProperty("java.io.tmpdir"));
-    }
 
     @Autowired
     private MockMvc mockMvc;
@@ -51,6 +48,9 @@ public class CreditCardRegistryServiceApplicationTest {
     private final String regularPersonalIdentificationNumber = "69435151530";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Value("${CREDIT_CARD_DATA_DIR}")
+    private String dataDir;
 
     @BeforeEach
     public void init() throws Exception {
@@ -98,7 +98,7 @@ public class CreditCardRegistryServiceApplicationTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
 
-        File file = new File(System.getProperty("CREDIT_CARD_DATA_DIR") + regularPersonalIdentificationNumber + ".csv");
+        File file = new File(dataDir + regularPersonalIdentificationNumber + ".csv");
         assertTrue(file.exists());
 
     }
@@ -119,7 +119,7 @@ public class CreditCardRegistryServiceApplicationTest {
                 .andExpect(status().is2xxSuccessful()
                 );
 
-        File file = new File(System.getProperty("CREDIT_CARD_DATA_DIR") + regularPersonalIdentificationNumber + ".csv");
+        File file = new File(dataDir + regularPersonalIdentificationNumber + ".csv");
         assertFalse(file.exists());
 
     }
