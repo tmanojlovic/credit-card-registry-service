@@ -132,7 +132,7 @@ public class CreditCardRegistryServiceApplicationTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/clients/" + regularPersonalIdentificationNumber)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError());
+                .andExpect(status().is5xxServerError());
 
         assertThat(clientRepository.existsById(CustomUtils.personalIdentificationNumberToId(regularPersonalIdentificationNumber)))
                 .isEqualTo(true);

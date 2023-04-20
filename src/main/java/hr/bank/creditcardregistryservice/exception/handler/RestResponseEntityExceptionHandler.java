@@ -60,14 +60,14 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         ArrayList<String> errorMessages = new ArrayList<>();
         errorMessages.add(ex.getMessage());
         return new ResponseEntity<>(
-                new ApiError(errorMessages, HttpStatusCode.valueOf(404)), HttpStatusCode.valueOf(404)
+                new ApiError(errorMessages, status),
+                status
         );
     }
 
     private ResponseEntity<Object> getResponseEntity(HttpStatusCode status, List<String> errorMessages, Throwable ex) {
         return new ResponseEntity<>(
-                new ApiError(errorMessages, HttpStatusCode.valueOf(404)), HttpStatusCode.valueOf(404)
-        );
+                new ApiError(errorMessages, status), status);
     }
 
 }
