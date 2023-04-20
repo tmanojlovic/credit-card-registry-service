@@ -20,15 +20,12 @@ public class ClientController {
         this.clientService = clientService;
     }
 
-
     @PostMapping
-    @ResponseBody
     public ResponseEntity<Client> addNewClient(@Validated @RequestBody Client client) {
             return new ResponseEntity<>(clientService.addNewClient(client), HttpStatusCode.valueOf(201));
     }
 
     @GetMapping("/{personalIdentificationNumber}")
-    @ResponseBody
     public ResponseEntity<Client> getClientByIdentificationNumber(@NotNull @PathVariable String personalIdentificationNumber) throws IOException {
         return new ResponseEntity<>(
                 clientService.getClientByIdentificationNumber(personalIdentificationNumber),
@@ -37,7 +34,6 @@ public class ClientController {
     }
 
     @DeleteMapping("/{personalIdentificationNumber}")
-    @ResponseBody
     public ResponseEntity<Void> deleteClient(
             @NotNull @PathVariable String personalIdentificationNumber
     ) throws IOException {
